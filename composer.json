@@ -1,0 +1,61 @@
+{
+    "name": "madebydavid/silex-skeleton-orm",
+    "description": "Skeleton Silex app with ORM and cli tool for generating model and schema",
+    "authors": [
+        {
+            "name": "madebydavid",
+            "email": "sutherland.dave@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+           {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.11.1",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.11.1.js",
+                    "type": "file"
+                }
+            }
+        }
+    ],
+    "require": {
+        "jquery/jquery": "1.11.1",
+        "silex/silex": "2.0.*@dev",
+        "twitter/bootstrap": "2.3.*",
+        "symfony/class-loader": "2.6.*",
+        "symfony/twig-bridge": "2.6.*",
+        "twig/twig": "1.16.*",
+        "monolog/monolog": "1.11.*",
+        "symfony/console": "2.6.*",
+        "symfony/validator": "2.6.*",
+        "doctrine/dbal": "2.5.*",
+        "symfony/doctrine-bridge": "2.6.*",
+        "dflydev/doctrine-orm-service-provider": "2.0.*",
+        "saxulum/saxulum-doctrine-orm-manager-registry-provider": "3.0.0",
+        "symfony/yaml": "2.6.*",
+        "symfony/form": "2.6.*",
+        "symfony/config": "2.6.*",
+        "symfony/translation": "2.6.*",
+        "symfony/locale": "2.6.*",
+        "symfony/security": "2.6.*"
+    },
+    "autoload":    {
+        "psr-0": {
+            "Controller": "src/",
+            "Model": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "mkdir -p web/bootstrap",
+            "ln -s ../../vendor/twitter/bootstrap/docs/assets/css/ web/bootstrap/css",
+            "ln -s ../../vendor/twitter/bootstrap/docs/assets/img/ web/bootstrap/img",
+            "ln -s ../../vendor/twitter/bootstrap/docs/assets/js/ web/bootstrap/js",
+            "mkdir -p web/js/jquery",
+            "ln -s ../../../vendor/jquery/jquery/jquery-1.11.1.js web/js/jquery/jquery.js"
+        ]
+    }
+}

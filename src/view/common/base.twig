@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+		{% include "common/config.twig" %}
+        <script src="{{ app.request_stack.getCurrentRequest.basePath }}/js/jquery/jquery.js"></script>
+        <script src="{{ app.request_stack.getCurrentRequest.basePath }}/bootstrap/js/bootstrap.js"></script>
+        <link href="{{ app.request_stack.getCurrentRequest.basePath }}/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+        {% endblock %}
+	</head>
+	<body class="container">
+		{% block content %}{% endblock %}
+	</body>
+</html>

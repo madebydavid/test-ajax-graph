@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script type="text/javascript">
+	window.onload = function () {
+
+		var dps = []; // dataPoints
+
+		var responseData = [];
+
+		var chart = new CanvasJS.Chart("chartContainer",{
+			title :{
+				text: "Sin(t) - Live"
+			},			
+			data: [{
+				type: "line",
+				dataPoints: dps 
+			}]
+		});
+
+		var pointsPerRequest = 10;
+
+		var displayUpdateInterval = 10;
+
+		var dataUpdateInterval = 100;
+
+		var updateChart = function (count) {
+
+			var timestamp = ((new Date).getTime() / 10);
+			var pointsFound = 0;
+
+			var minTime = timestamp - 1000;
+
+			var displaySlice = responseData.filter(function(dataPoint) {
+				return ((dataPoint.x > minTime) && (dataPoint.x < timestamp));
+			});
+
+			dps.length = 0;
+			dps.push.apply(dps, displaySlice);
+
+			chart.render();		
+		
+		};
+
+		// update chart after specified time. 
+		setInterval(function(){updateChart()}, displayUpdateInterval); 
+
+		setInterval(function(){updateData()}, dataUpdateInterval); 
+
+		var updateData = function () {
+
+			$.ajax({
+				type: 'get',
+				url: '/graph/index_dev.php/data?count=' + pointsPerRequest + '&x=' + ((new Date).getTime() / 10),
+
+				success: function(data) {
+
+					$.each(data, function(i, dataPoint) {
+						responseData.push(dataPoint);
+					});	
+
+				}
+			});
+		}
+
+
+
+	}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="/graph/js/canvasjs.min.js"></script>
+</head>
+<body>
+	<div id="chartContainer" style="height: 300px; width:100%;">
+	</div>
+</body>
+</html>
